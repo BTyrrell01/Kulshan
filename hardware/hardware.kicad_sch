@@ -2,9 +2,147 @@
 	(version 20260306)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid a19f636f-b28d-4c43-b96a-b02383edd3eb)
+	(uuid "a19f636f-b28d-4c43-b96a-b02383edd3eb")
 	(paper "A4")
 	(lib_symbols)
+	(sheet
+		(at 55.245 69.215)
+		(size 40.005 36.83)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(color 0 132 132 0.3294117647)
+		)
+		(uuid "5faec1c3-df4d-496d-8abe-1238008de314")
+		(property "Sheetname" "Pulse Oximetry"
+			(at 55.245 68.4526 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Pulse_Oximetry.kicad_sch"
+			(at 55.245 106.6804 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "hardware"
+				(path "/a19f636f-b28d-4c43-b96a-b02383edd3eb"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 134.62 69.215)
+		(size 40.005 36.83)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(color 0 132 0 0.3294117647)
+		)
+		(uuid "66e2f96f-c2f9-49fe-949d-95863aff4e55")
+		(property "Sheetname" "ESP32"
+			(at 134.62 68.4526 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "MCU.kicad_sch"
+			(at 134.62 106.6804 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "hardware"
+				(path "/a19f636f-b28d-4c43-b96a-b02383edd3eb"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 213.995 68.58)
+		(size 40.005 36.83)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.254)
+			(type solid)
+		)
+		(fill
+			(color 194 0 194 0.3294117647)
+		)
+		(uuid "f1253868-2aed-4722-868b-c1daae02dbb4")
+		(property "Sheetname" "GPS"
+			(at 213.995 67.8176 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "GPS.kicad_sch"
+			(at 213.995 106.0454 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "hardware"
+				(path "/a19f636f-b28d-4c43-b96a-b02383edd3eb"
+					(page "6")
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")
