@@ -3,3 +3,8 @@
 
 # ignore the output directory for the strictdoc server
 docs/requirements/output/
+
+# ignore the kicad lock and configuration files
+*.kicad_pro.lck
+*.kicad_sch.lck
+*.kicad_prl
