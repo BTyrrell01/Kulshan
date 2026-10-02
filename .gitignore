@@ -1,2 +1,5 @@
 # kicad history repo
 .history/
+
+# ignore the output directory for the strictdoc server
+docs/requirements/output/
