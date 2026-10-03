@@ -1,0 +1,155 @@
+[GRAMMAR]
+ELEMENTS:
+- TAG: SECTION
+  PROPERTIES:
+    IS_COMPOSITE: True
+    PREFIX: None
+    VIEW_STYLE: Narrative
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: False
+  - TITLE: LEVEL
+    TYPE: String
+    REQUIRED: False
+  - TITLE: PREFIX
+    TYPE: String
+    REQUIRED: False
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+- TAG: TEXT
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: False
+  - TITLE: STATEMENT
+    TYPE: String
+    REQUIRED: True
+- TAG: CRITERION
+  PROPERTIES:
+    PREFIX: CR-
+    VIEW_STYLE: Table
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: True
+  - TITLE: CRITERION_TYPE
+    TYPE: SingleChoice(Gate, Weighted)
+    REQUIRED: True
+  - TITLE: CATEGORY
+    TYPE: SingleChoice(Performance, Safety, Cost, Schedule, Risk, Maintainability)
+    REQUIRED: True
+  - TITLE: WEIGHT
+    TYPE: String
+    REQUIRED: True
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STATEMENT
+    TYPE: String
+    REQUIRED: True
+  - TITLE: SCORING_GUIDE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: RATIONALE
+    TYPE: String
+    REQUIRED: False
+  RELATIONS:
+  - TYPE: Parent
+    ROLE: Derived from
+    REVERSE_ROLE: Evaluated by
+- TAG: ALTERNATIVE
+  PROPERTIES:
+    IS_COMPOSITE: True
+    PREFIX: ALT-
+    VIEW_STYLE: Table
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STATUS
+    TYPE: SingleChoice(Candidate, Eliminated, Selected)
+    REQUIRED: True
+  - TITLE: SOURCE
+    TYPE: SingleChoice(COTS, ModifiedCOTS, OpenSource, InHouse)
+    REQUIRED: True
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: DESCRIPTION
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STRENGTHS
+    TYPE: String
+    REQUIRED: False
+  - TITLE: WEAKNESSES
+    TYPE: String
+    REQUIRED: False
+  - TITLE: RISKS
+    TYPE: String
+    REQUIRED: False
+- TAG: SCORE
+  PROPERTIES:
+    PREFIX: SC-
+    VIEW_STYLE: Table
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: True
+  - TITLE: SCORE
+    TYPE: SingleChoice(Pass, Fail, 1, 2, 3, 4, 5)
+    REQUIRED: True
+  - TITLE: CONFIDENCE
+    TYPE: SingleChoice(Low, Medium, High)
+    REQUIRED: True
+  - TITLE: EVALUATOR
+    TYPE: String
+    REQUIRED: False
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STATEMENT
+    TYPE: String
+    REQUIRED: True
+  - TITLE: EVIDENCE
+    TYPE: String
+    REQUIRED: False
+  RELATIONS:
+  - TYPE: Parent
+    ROLE: Assesses
+    REVERSE_ROLE: Assessed by
+- TAG: DECISION
+  PROPERTIES:
+    PREFIX: DEC-
+    VIEW_STYLE: Table
+  FIELDS:
+  - TITLE: UID
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STATUS
+    TYPE: SingleChoice(Proposed, Approved, Superseded)
+    REQUIRED: True
+  - TITLE: DATE
+    TYPE: String
+    REQUIRED: False
+  - TITLE: APPROVER
+    TYPE: String
+    REQUIRED: False
+  - TITLE: TITLE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: STATEMENT
+    TYPE: String
+    REQUIRED: True
+  - TITLE: RATIONALE
+    TYPE: String
+    REQUIRED: True
+  - TITLE: OPEN_ACTIONS
+    TYPE: String
+    REQUIRED: False
+  RELATIONS:
+  - TYPE: Parent
+    ROLE: Selects
+    REVERSE_ROLE: Selected by 
+

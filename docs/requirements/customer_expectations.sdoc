@@ -17,7 +17,7 @@ RATIONALE: The user can wear the watch all day, including during exercise, witho
 
 [REQUIREMENT]
 UID: MOE-001-002
-STATEMENT: The watch shall be able to stream to bluetooth classic devices through the AAC codec using A2DP for 36hrs, regardless of what mode the device is in.
+STATEMENT: The watch shall be able to stream to bluetooth classic devices for 36hrs, regardless of what mode the device is in.
 RATIONALE: The user should be able to stream bluetooth audio from the watch all day without being connected to a phone.
 
 [REQUIREMENT]
@@ -37,8 +37,17 @@ RATIONALE: The watch should be tough, and the user should not worry about breaki
 
 [REQUIREMENT]
 UID: MOE-001-006
-STATEMENT: The watch should charge from 0% SOC to 100% SOC in 60 minutes.
-RATIONALE: Some athletes have more than 1 activity in the day. The watch should be able to support this.
+STATEMENT: >>>
+The watch should charge from 0% SOC to 100% SOC in 60 minutes.
+<<<
+RATIONALE: >>>
+Some athletes have more than 1 activity in the day. The watch should be able to support this.
+<<<
+COMMENT: >>>
+Fast charging is useful for:
+* Multi-day trips where you need to charge the watch during a break
+* The user doesn't have much time before the start of their activity, and they need the watch to survive the duration of the activity
+<<<
 
 [REQUIREMENT]
 UID: MOE-001-007
@@ -62,23 +71,30 @@ RATIONALE: Some activities have very high heart rate variability, and the watch 
 
 [REQUIREMENT]
 UID: MOE-001-011
-STATEMENT: The watch shall measure SPO2 with a mean absolute error of no more than 5% relative to a reference, for SPO2 from 80% to 100%, for users across Fitzpatrick skin types I–VI.
-RATIONALE: Athletes train with a huge variation in SPO2. Accuracy must hold across skin tone because the product targets everyone.
+STATEMENT: >>>
+The watch shall measure SPO2 with a mean absolute error of no more than 5% relative to a reference, for SPO2 from 80% to 100%, for users across Fitzpatrick skin types I–VI.
+<<<
+RATIONALE: >>>
+Athletes train with a huge variation in SPO2. It is important to monitor SPO2 in the event that it gets too low.
+<<<
 
 [REQUIREMENT]
 UID: MOE-001-012
-STATEMENT: The watch shall record SPO2 at intervals of no more than 1 second during a recorded activity.
-RATIONALE: SPO2 is a very important metric and should be monitored rapidly in the event it gets too low.
-
-[REQUIREMENT]
-UID: MOE-001-013
-STATEMENT: The watch shall record HRV at intervals of no more than 1 time every day.
-RATIONALE: HRV is not a helpful metric in real-time. It is a useful metric to track over long periods of time. 
+STATEMENT: >>>
+The watch shall record SPO2 at intervals of no more than 1 second during a recorded activity.
+<<<
+RATIONALE: >>>
+SPO2 is a very important metric and should be monitored rapidly in the event it gets too low.
+<<<
 
 [REQUIREMENT]
 UID: MOE-001-014
-STATEMENT: The watch shall interface wirelessly with iphone/android devices.
-RATIONALE: The watch should have long term software support on its interfacing devices. 
+STATEMENT: >>>
+The watch shall interface wirelessly with an app on iPhone/Android devices.
+<<<
+RATIONALE: >>>
+Data should come off of the watch and be analyzable on a computer/phone.
+<<<
 
 [REQUIREMENT]
 UID: MOE-001-015
@@ -92,13 +108,21 @@ RATIONALE: Accurate tracking of the athlete is central to knowing other very imp
 
 [REQUIREMENT]
 UID: MOE-001-017
-STATEMENT: The watch shall update the users location while recording from 1hz to 100hz
-RATIONALE: Depending on the speed of the user, the location tracking must be able to adapt its frequency.
+STATEMENT: >>>
+The watch shall update the users location while recording at a minimum of 1hz.
+<<<
+RATIONALE: >>>
+Users could be traveling at a huge variety of speeds. The watch should report accurate distance regardless of user speed.
+<<<
 
 [REQUIREMENT]
 UID: MOE-001-018
-STATEMENT: The watch shall be able to alert the user with sound of at least 40dB intensity, as well as vibrate with an intensity of at least 0.1G.
-RATIONALE: The user must be alerted when the athlete passes through a important distance or time goals.
+STATEMENT: >>>
+The watch shall be able to alert the user with sound of at least 40dB intensity, as well as vibrate with an intensity of at least 0.1G.
+<<<
+RATIONALE: >>>
+The user should be alerted when the athlete passes through an important distance or time goal/marker.
+<<<
 
 [REQUIREMENT]
 UID: MOE-001-019
@@ -107,6 +131,11 @@ RATIONALE: For outdoor activities in the mountains, it is essential to have accu
 
 [REQUIREMENT]
 UID: MOE-001-020
-STATEMENT: The watch shall count the steps of the user, with an accuracy of 1ppm.
+STATEMENT: >>>
+The watch shall count the steps of the user, with an accuracy of 1ppm.
+<<<
+RATIONALE: >>>
+Running athletes use cadence as a metric for monitoring running form, the watch should report running spm and total steps each day.
+<<<
 
 [[/SECTION]]
