@@ -261,7 +261,7 @@ Total footprint area on the PCB.
 
 [SCORE]
 UID: SC-1
-SCORE: 3
+SCORE: 4
 CONFIDENCE: Medium
 EVALUATOR: Ben
 TITLE: Option A vs HRM accuracy and measurement capability
@@ -289,7 +289,7 @@ RELATIONS:
 
 [SCORE]
 UID: SC-3
-SCORE: 3
+SCORE: 4
 CONFIDENCE: Medium
 EVALUATOR: Ben
 TITLE: Option A vs SPO2 accuracy and measurement capability
@@ -429,7 +429,7 @@ RELATIONS:
 
 [SCORE]
 UID: SC-13
-SCORE: Pass
+SCORE: 5
 CONFIDENCE: High
 EVALUATOR: Ben
 TITLE: Option B vs Wireless connectivity
@@ -560,7 +560,7 @@ TITLE: Results
 
 [TEXT]
 STATEMENT: >>>
-.. list-table:: Weighted scoring summary (normalized to a 1-5 scale)
+.. list-table:: Scoring summary
    :header-rows: 1
 
    * - Criterion
@@ -568,51 +568,64 @@ STATEMENT: >>>
      - Option A
      - Option B
      - Option C
-   * - CR-001 Isolation (gate)
+   * - HRM accuracy and measurement capability
+     - 1
+     - 4
+     - 4
+     - 3
+   * - HRM accuracy and cost of development time
+     - 1
+     - 3
+     - 4
+     - 3
+   * - SPO2 accuracy and measurement capability
+     - 1
+     - 4
+     - 4
+     - 3
+   * - SPO2 accuracy and cost of development time
+     - 1
+     - 3
+     - 4
+     - 3
+   * - Bluetooth classic streaming
      - Gate
      - Pass
      - Pass
-     - **Fail**
-   * - CR-002 Certification evidence
-     - 35
-     - 3
+     - Pass
+   * - Wireless connectivity
+     - 1
      - 5
-     - n/a
-   * - CR-003 Lifecycle cost
-     - 25
      - 5
      - 2
-     - n/a
-   * - CR-004 Schedule risk
-     - 25
+   * - BoM Cost
+     - 1
      - 4
-     - 4
-     - n/a
-   * - CR-005 Ecosystem
-     - 15
-     - 5
      - 3
-     - n/a
+     - 2
    * - **Weighted total**
-     - 100
-     - **4.05**
-     - 3.70
-     - Eliminated
+     - N/A
+     - 23
+     - 24
+     - 17
 
 This table is maintained by hand; the SCORE nodes are the source of truth.
 <<<
 
 [TEXT]
 STATEMENT: >>>
-**Sensitivity analysis:** Holding the other weights in proportion, Option B
-overtakes Option A only if the certification-evidence weight (CR-002) rises
-above roughly 45%. The result is therefore moderately robust, but sensitive to
-how heavily the program values supplier-provided certification evidence.
+**Sensitivity analysis:** Option B overtakes Option A only if the cost of developing the HRM and SPO2 algorithms is truly as difficult as specified. The result is therefore moderately robust, but sensitive to
+how heavily the algorithms are to implement.
 <<<
 
 [[/SECTION]]
 
 [[SECTION]]
 TITLE: Decision
+
+[TEXT]
+STATEMENT: >>>
+The difficulty of implementing the SPO2 and HRM algorithms on the MCU should be evaluated. If the algorithms are too difficult to implement, then option B should be taken. Otherwise option A is choice to be taken.
+<<<
 
 [[/SECTION]]
