@@ -41,7 +41,7 @@ STATEMENT: >>>
 The degree to which the system can provide accurate HRM.
 <<<
 SCORING_GUIDE: >>>
-* 5: Equivalent accuracy to ECG.
+* 5: Excellent accuracy (ECG level)
 * 3: Meets and exceeds MOE-001-003.
 * 1: Doesn't meet MOE-001-003, or some part of it.
 <<<
@@ -151,25 +151,6 @@ RELATIONS:
   ROLE: Derived from
 
 [CRITERION]
-UID: CR-6
-CRITERION_TYPE: Weighted
-CATEGORY: Performance
-WEIGHT: 1
-TITLE: Charge time
-STATEMENT: >>>
-The degree to which the system supports fast charging
-<<<
-SCORING_GUIDE: >>>
-* 5: The system with the fastest charge time.
-* 3: The system with the 2nd fastest charge time.
-* 1: The system with the slowest charge time.
-<<<
-RELATIONS:
-- TYPE: Parent
-  VALUE: MOE-001-006
-  ROLE: Derived from
-
-[CRITERION]
 UID: CR-7
 CRITERION_TYPE: Weighted
 CATEGORY: Cost
@@ -195,6 +176,382 @@ RELATIONS:
 
 [[SECTION]]
 TITLE: Alternatives and Scoring
+
+[[ALTERNATIVE]]
+UID: ALT-1
+STATUS: Candidate
+SOURCE: InHouse
+TITLE: Option A: ESP32 sans sensor hub
+DESCRIPTION: >>>
+ESP32 microcontroller without a sensor hub
+
+
+.. image:: ./_assets/ALT-1/ESP32_opt1.svg
+<<<
+STRENGTHS: >>>
+* Hardware simplicity. Single dual core microcontroller with integrated flash.
+* Microcontroller has all interfaces necessary to make the project work.
+* WiFi, bluetooth classic, and bluetooth LE for interface flexibility.
+<<<
+WEAKNESSES: >>>
+* No ARM cores, sort of one off tooling
+* Low number of GPIOs
+<<<
+RISKS: >>>
+* Learning curve with ESP-IDF
+* 0.35mm pitch QFN for ESP32
+* HRM and SPO2 algorithm seems moderately difficult
+<<<
+
+[[/ALTERNATIVE]]
+
+[[ALTERNATIVE]]
+UID: ALT-2
+STATUS: Candidate
+SOURCE: InHouse
+TITLE: Option B: ESP32 with sensor hub
+DESCRIPTION: >>>
+ESP32 microcontroller with sensor hub
+
+
+.. image:: ./_assets/ALT-2/ESP32_opt2.svg
+<<<
+STRENGTHS: >>>
+* Software simplicity. Sensor hub eliminates the custom HRM and SPO2 algorithm.
+* Microcontroller has all interfaces necessary to make the project work.
+* WiFi, bluetooth classic, and bluetooth LE for interface flexibility.
+<<<
+WEAKNESSES: >>>
+* Slightly higher BoM cost.
+* Slightly more complicated PCB (another BGA to layout).
+* Some software work to get the ESP32 communicating with the sensor hub.
+* Slightly higher power consumption.
+<<<
+
+[[/ALTERNATIVE]]
+
+[[ALTERNATIVE]]
+UID: ALT-3
+STATUS: Candidate
+SOURCE: InHouse
+TITLE: Option C: STM32 with connectivity module
+DESCRIPTION: >>>
+STM32 (or NXP) as main processor, with bluetooth co-processor
+
+
+.. image:: ./_assets/ALT-3/STM32_opt1.svg
+<<<
+STRENGTHS: >>>
+* Lower stress on each individual MCU?
+* Increased flexibility on RF modules.
+* Higher number of power modes? Potentially lower minimum power state?
+<<<
+WEAKNESSES: >>>
+* Hardware complexity. Two microcontrollers instead of 1.
+* Software complexity. Two microcontrollers instead of 1.
+* Increased power consumption.
+* Slightly higher BoM cost.
+<<<
+RISKS: >>>
+Software work to get all elements working together.
+Total footprint area on the PCB.
+<<<
+
+[[/ALTERNATIVE]]
+
+[SCORE]
+UID: SC-1
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option A vs HRM accuracy and measurement capability
+STATEMENT: >>>
+Option A does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-3
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-2
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option A vs HRM accuracy and cost of development time
+STATEMENT: >>>
+Option A does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-4
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-3
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option A vs SPO2 accuracy and measurement capability
+STATEMENT: >>>
+Option A does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-9
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-4
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option A vs SPO2 accuracy and cost of development
+STATEMENT: >>>
+Option A does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-8
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-5
+SCORE: Pass
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option A vs Bluetooth classic streaming
+STATEMENT: >>>
+Option A offers bluetooth classic streaming, as well as LE and WiFi connectivity as well
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-2
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-6
+SCORE: 5
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option A vs Wireless connectivity
+STATEMENT: >>>
+Option A offers bluetooth classic, LE and WiFi connectivity all from the host microcontroller.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-5
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-7
+SCORE: 4
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option A vs BoM Cost
+STATEMENT: >>>
+Option A has a single, inexpensive MCU, with the minimum number of external components.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-7
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-8
+SCORE: 4
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs HRM accuracy and measurement capability
+STATEMENT: >>>
+Option B has a sensor hub, which has a proprietary pre-optimized algorithm for HRM and SPO2. There is very little software work required to get the system working.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-3
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-9
+SCORE: 4
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs HRM accuracy and cost of development time
+STATEMENT: >>>
+Option B has a sensor hub, which has a proprietary pre-optimized algorithm for HRM and SPO2. There is very little software work required to get the system working.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-4
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-10
+SCORE: 4
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs SPO2 accuracy and measurement capability
+STATEMENT: >>>
+Option B has a sensor hub, which has a proprietary pre-optimized algorithm for HRM and SPO2. There is very little software work required to get the system working.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-9
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-11
+SCORE: 4
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs SPO2 accuracy and cost of development time
+STATEMENT: >>>
+Option B has a sensor hub, which has a proprietary pre-optimized algorithm for HRM and SPO2. There is very little software work required to get the system working.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-8
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-12
+SCORE: Pass
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs Bluetooth classic streaming
+STATEMENT: >>>
+Option B offers bluetooth classic streaming, as well as LE and WiFi connectivity as well
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-2
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-13
+SCORE: Pass
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs Wireless connectivity
+STATEMENT: >>>
+Option B offers bluetooth classic, LE and WiFi connectivity all from the host microcontroller.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-5
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-14
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option B vs BoM Cost
+STATEMENT: >>>
+Option B is very slightly higher BoM cost compared to Option A, as the sensor hub has a cost
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-7
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-15
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option C vs HRM accuracy and measurement capability
+STATEMENT: >>>
+Option C does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-3
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-16
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option C vs HRM accuracy and cost of development time
+STATEMENT: >>>
+Option C does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-4
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-17
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option C vs SPO2 accuracy and measurement capability
+STATEMENT: >>>
+Option C does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-9
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-18
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option C vs SPO2 accuracy and cost of development time
+STATEMENT: >>>
+Option C does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-8
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-19
+SCORE: Pass
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option C vs Bluetooth classic streaming
+STATEMENT: >>>
+Option C has a dedicated bluetooth co-processor that supports bluetooth classic
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-2
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-20
+SCORE: 2
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option C vs Wireless connectivity
+STATEMENT: >>>
+Option C has a dedicated bluetooth co-processor that could support a variety of protocols. However it is not very nice that it is a completely separate co-processor that requires a lot of extra software work
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-5
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-21
+SCORE: 2
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option C vs BoM Cost
+STATEMENT: >>>
+Option C has a dedicated bluetooth co-processor. It has the highest BoM cost because of this additional co-processor cost.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-7
+  ROLE: Assesses
 
 [[/SECTION]]
 
