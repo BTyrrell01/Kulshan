@@ -626,6 +626,28 @@ TITLE: Decision
 [TEXT]
 STATEMENT: >>>
 The difficulty of implementing the SPO2 and HRM algorithms on the MCU should be evaluated. If the algorithms are too difficult to implement, then option B should be taken. Otherwise option A is choice to be taken.
+
+Please see the following repo for the analysis of the work required to meet requirement MOE-001-003 with architecture A.
+https://github.com/BTyrrell01/ppg-testbed
+
+The repo exists as a testbed for PPG algorithms. The inputs to a test are a set of algorithms, and the data from 2x publicly available PPG datasets. The main question we can answer using the testbed is
+
+"What is the minimum amount of work required to meet requirement MOE-001-003, and will that algorithm fit on the ESP32?"
+
+The secondary questions it helps to answer are:
+* What are the pitfalls of each algorithm? Where do they fall apart and where do they excel?
+* What data is required to meet MOE-001-003? Do we need multiple wavelengths? Accelerometer data?
+
+The direct outputs of the testbed are the performance of the algorithms across many different parameters. If the bar to meet MOE-001-003 is low, then simple algorithms that port to the ESP32 easily can be developed (by me). If the algorithms are very complex or don't fit on the ESP32, then I will know that we have to go with architecture B.
+
+============================ RESULTS ============================
+Baseline algorithms get us almost there, but have dramatic pitfalls.
+* Simple peak detect satisfies the requirement, but error goes well above 10bpm when the SNR gets low or motion artifacts corrupt the signal.
+* Wavelet transform algorithm with accelerometer data for compensation meets and exceeds the requirements, while taking 81KB of RAM on the ESP32 (Not too shabby!)
+
+file:///Users/ben/Projects/PPG_algorithm/results/dalia_dev_baselines/report.html
+
+We are going with option A! If implementing the Wavelet transform + accelerometer data is too difficult we can just use the baseline FFT + accelerometer compensation.
 <<<
 
 [[/SECTION]]
