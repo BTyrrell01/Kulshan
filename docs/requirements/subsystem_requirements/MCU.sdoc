@@ -1,10 +1,8 @@
 [DOCUMENT]
-TITLE: Subsystem: MCU
+TITLE: Electrical Subsystem: MCU
 VERSION: @GIT_BRANCH
 
 [TEXT]
 STATEMENT: >>>
-**Scope**: 
-
+**Scope**:
 <<<
-

@@ -1,10 +1,8 @@
 [DOCUMENT]
-TITLE: Subsystem: Haptics
+TITLE: Electrical Subsystem: Haptics
 VERSION: @GIT_BRANCH
 
 [TEXT]
 STATEMENT: >>>
-**Scope**: 
-
+**Scope**:
 <<<
-

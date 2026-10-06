@@ -1,10 +1,8 @@
 [DOCUMENT]
-TITLE: Subsystem: Optical PPG
+TITLE: Electrical Subsystem: Optical PPG
 VERSION: @GIT_BRANCH
 
 [TEXT]
 STATEMENT: >>>
-**Scope**: 
-
+**Scope**:
 <<<
-
