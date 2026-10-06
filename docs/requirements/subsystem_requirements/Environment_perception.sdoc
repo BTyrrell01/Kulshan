@@ -1,0 +1,19 @@
+[DOCUMENT]
+TITLE: Subsystem: Environment Perception
+VERSION: @GIT_BRANCH
+
+[TEXT]
+STATEMENT: >>>
+**Scope**: The Environment perception subsystem includes the IMU and the barometer.
+
+IMU: The IMU's main purpose is to detect when the user has taken a step, and the provide acceleration data to the MCU to improve the PPG readings.
+
+Barometer: The barometer's purpose is to indicate what altitude the user is at during a recorded activity.
+<<<
+
+[TEXT]
+STATEMENT: >>>
+Pertinent stakeholder expectations are:
+* MOE-001-019
+* MOE-001-020
+<<<

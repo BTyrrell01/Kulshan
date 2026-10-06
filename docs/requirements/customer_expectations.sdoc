@@ -17,8 +17,12 @@ RATIONALE: The user can wear the watch all day, including during exercise, witho
 
 [REQUIREMENT]
 UID: MOE-001-002
-STATEMENT: The watch shall be able to stream to bluetooth classic devices for 36hrs, regardless of what mode the device is in.
-RATIONALE: The user should be able to stream bluetooth audio from the watch all day without being connected to a phone.
+STATEMENT: >>>
+The watch shall be able to stream to bluetooth classic devices for 18hrs.
+<<<
+RATIONALE: >>>
+The user should be able to stream bluetooth audio from the watch all day without being connected to a phone.
+<<<
 
 [REQUIREMENT]
 UID: MOE-001-003
@@ -132,7 +136,7 @@ RATIONALE: For outdoor activities in the mountains, it is essential to have accu
 [REQUIREMENT]
 UID: MOE-001-020
 STATEMENT: >>>
-The watch shall count the steps of the user, with an accuracy of 1ppm.
+The watch shall count the steps of the user, with a mean error of no more than 1ppm.
 <<<
 RATIONALE: >>>
 Running athletes use cadence as a metric for monitoring running form, the watch should report running spm and total steps each day.

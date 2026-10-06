@@ -1,0 +1,15 @@
+[DOCUMENT]
+TITLE: Subsystem: GPS
+VERSION: @GIT_BRANCH
+
+[TEXT]
+STATEMENT: >>>
+**Scope**: The GPS subsystem includes the GPS and the GPS antenna.
+
+GPS: Used to report the location in 3d space of the user.
+<<<
+
+[TEXT]
+STATEMENT: >>>
+Pertinent stakeholder expectations and system requirements are:
+<<<

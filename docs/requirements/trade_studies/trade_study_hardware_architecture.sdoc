@@ -32,25 +32,6 @@ The weighted score is the sum of (weight x score) divided by the total weight.
 TITLE: Evaluation Criteria
 
 [CRITERION]
-UID: CR-3
-CRITERION_TYPE: Weighted
-CATEGORY: Performance
-WEIGHT: 1
-TITLE: HRM accuracy and measurement capability
-STATEMENT: >>>
-The degree to which the system can provide accurate HRM.
-<<<
-SCORING_GUIDE: >>>
-* 5: Excellent accuracy (ECG level)
-* 3: Meets and exceeds MOE-001-003.
-* 1: Doesn't meet MOE-001-003, or some part of it.
-<<<
-RELATIONS:
-- TYPE: Parent
-  VALUE: MOE-001-003
-  ROLE: Derived from
-
-[CRITERION]
 UID: CR-4
 CRITERION_TYPE: Weighted
 CATEGORY: Schedule
@@ -67,25 +48,6 @@ SCORING_GUIDE: >>>
 RELATIONS:
 - TYPE: Parent
   VALUE: MOE-001-003
-  ROLE: Derived from
-
-[CRITERION]
-UID: CR-9
-CRITERION_TYPE: Weighted
-CATEGORY: Performance
-WEIGHT: 1
-TITLE: SPO2 accuracy and measurement capability
-STATEMENT: >>>
-The degree to which the system can provide accurate SPO2 data
-<<<
-SCORING_GUIDE: >>>
-* 5: Very accurate SPO2 data
-* 3: Good SPO2 data
-* 1: Poor SPO2 data
-<<<
-RELATIONS:
-- TYPE: Parent
-  VALUE: MOE-001-011
   ROLE: Derived from
 
 [CRITERION]
@@ -172,6 +134,23 @@ RELATIONS:
   VALUE: MOE-001-007
   ROLE: Derived from
 
+[CRITERION]
+UID: CR-10
+CRITERION_TYPE: Weighted
+CATEGORY: Performance
+WEIGHT: 1
+TITLE: Power consumption
+STATEMENT: >>>
+The degree to which the system draws power
+<<<
+SCORING_GUIDE: >>>
+* 5: Lowest consumption
+* 1: Highest consumption
+<<<
+RATIONALE: >>>
+To keep the weight under 100g, the battery needs to be small.
+<<<
+
 [[/SECTION]]
 
 [[SECTION]]
@@ -242,15 +221,14 @@ STM32 (or NXP) as main processor, with bluetooth co-processor
 .. image:: ./_assets/ALT-3/STM32_opt1.svg
 <<<
 STRENGTHS: >>>
-* Lower stress on each individual MCU?
+* Lower stress on each individual MCU.
 * Increased flexibility on RF modules.
-* Higher number of power modes? Potentially lower minimum power state?
+* Reduced power consumption while using bluetooth.
+* No antenna design required for some bluetooth modules.
 <<<
 WEAKNESSES: >>>
-* Hardware complexity. Two microcontrollers instead of 1.
-* Software complexity. Two microcontrollers instead of 1.
-* Increased power consumption.
-* Slightly higher BoM cost.
+* Higher layout complexity. Two microcontrollers instead of 1.
+* Higher BoM cost.
 <<<
 RISKS: >>>
 Software work to get all elements working together.
@@ -258,20 +236,6 @@ Total footprint area on the PCB.
 <<<
 
 [[/ALTERNATIVE]]
-
-[SCORE]
-UID: SC-1
-SCORE: 4
-CONFIDENCE: Medium
-EVALUATOR: Ben
-TITLE: Option A vs HRM accuracy and measurement capability
-STATEMENT: >>>
-Option A does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
-<<<
-RELATIONS:
-- TYPE: Parent
-  VALUE: CR-3
-  ROLE: Assesses
 
 [SCORE]
 UID: SC-2
@@ -285,20 +249,6 @@ Option A does not have a sensor hub, so the algorithm is completely custom. The 
 RELATIONS:
 - TYPE: Parent
   VALUE: CR-4
-  ROLE: Assesses
-
-[SCORE]
-UID: SC-3
-SCORE: 4
-CONFIDENCE: Medium
-EVALUATOR: Ben
-TITLE: Option A vs SPO2 accuracy and measurement capability
-STATEMENT: >>>
-Option A does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
-<<<
-RELATIONS:
-- TYPE: Parent
-  VALUE: CR-9
   ROLE: Assesses
 
 [SCORE]
@@ -358,17 +308,20 @@ RELATIONS:
   ROLE: Assesses
 
 [SCORE]
-UID: SC-8
-SCORE: 4
+UID: SC-22
+SCORE: 2
 CONFIDENCE: High
 EVALUATOR: Ben
-TITLE: Option B vs HRM accuracy and measurement capability
+TITLE: Option A vs Power Consumption
 STATEMENT: >>>
-Option B has a sensor hub, which has a proprietary pre-optimized algorithm for HRM and SPO2. There is very little software work required to get the system working.
+This option has some power saving options, but during bluetooth transmisstion the power consumption is far too high.
+<<<
+EVIDENCE: >>>
+The ESP32 has dynamic frequency scaling, and you can disable the modem(s). But during transmission 0dB, the current consumption is 130mA! During streaming the modem is on essentially the entire time. The requirement at this time is to be able to stream music for 36hrs. With a current consumption of 130mA, we would require at absolute minimimum 2.34AH of battery capacity (probably more like 3AH). To keep the battery under 1000mAH, the current consumption of the entire device during music streaming would need to be 55mA.
 <<<
 RELATIONS:
 - TYPE: Parent
-  VALUE: CR-3
+  VALUE: MOE-001-002
   ROLE: Assesses
 
 [SCORE]
@@ -383,20 +336,6 @@ Option B has a sensor hub, which has a proprietary pre-optimized algorithm for H
 RELATIONS:
 - TYPE: Parent
   VALUE: CR-4
-  ROLE: Assesses
-
-[SCORE]
-UID: SC-10
-SCORE: 4
-CONFIDENCE: High
-EVALUATOR: Ben
-TITLE: Option B vs SPO2 accuracy and measurement capability
-STATEMENT: >>>
-Option B has a sensor hub, which has a proprietary pre-optimized algorithm for HRM and SPO2. There is very little software work required to get the system working.
-<<<
-RELATIONS:
-- TYPE: Parent
-  VALUE: CR-9
   ROLE: Assesses
 
 [SCORE]
@@ -456,17 +395,22 @@ RELATIONS:
   ROLE: Assesses
 
 [SCORE]
-UID: SC-15
-SCORE: 3
-CONFIDENCE: Medium
+UID: SC-23
+SCORE: 2
+CONFIDENCE: High
 EVALUATOR: Ben
-TITLE: Option C vs HRM accuracy and measurement capability
+TITLE: Option B vs Power Consumption
 STATEMENT: >>>
-Option C does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+This option has some power saving options, but during bluetooth transmisstion the power consumption is far too high.
+<<<
+EVIDENCE: >>>
+The ESP32 has dynamic frequency scaling, and you can disable the modem(s). But during transmission 0dB, the current consumption is 130mA! During streaming the modem is on essentially the entire time. The requirement at this time is to be able to stream music for 36hrs. With a current consumption of 130mA, we would require at absolute minimimum 2.34AH of battery capacity (probably more like 3AH). To keep the battery under 1000mAH, the current consumption of the entire device during music streaming would need to be 55mA.
+
+The fact that this option has the MAX32664 might actually increase the power consumption of the device even further.
 <<<
 RELATIONS:
 - TYPE: Parent
-  VALUE: CR-3
+  VALUE: CR-10
   ROLE: Assesses
 
 [SCORE]
@@ -481,20 +425,6 @@ Option C does not have a sensor hub, so the algorithm is completely custom. The 
 RELATIONS:
 - TYPE: Parent
   VALUE: CR-4
-  ROLE: Assesses
-
-[SCORE]
-UID: SC-17
-SCORE: 3
-CONFIDENCE: Medium
-EVALUATOR: Ben
-TITLE: Option C vs SPO2 accuracy and measurement capability
-STATEMENT: >>>
-Option C does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
-<<<
-RELATIONS:
-- TYPE: Parent
-  VALUE: CR-9
   ROLE: Assesses
 
 [SCORE]
@@ -527,12 +457,12 @@ RELATIONS:
 
 [SCORE]
 UID: SC-20
-SCORE: 2
+SCORE: 5
 CONFIDENCE: High
 EVALUATOR: Ben
 TITLE: Option C vs Wireless connectivity
 STATEMENT: >>>
-Option C has a dedicated bluetooth co-processor that could support a variety of protocols. However it is not very nice that it is a completely separate co-processor that requires a lot of extra software work
+Option C has a dedicated co-processor that could support any variety of protocols.
 <<<
 RELATIONS:
 - TYPE: Parent
@@ -553,6 +483,23 @@ RELATIONS:
   VALUE: CR-7
   ROLE: Assesses
 
+[SCORE]
+UID: SC-24
+SCORE: 5
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option C vs Power Consumption
+STATEMENT: >>>
+This option provides the best power consumption of all the options.
+<<<
+EVIDENCE: >>>
+With ultra-low-power MCUs like the STM32U595RJ, along with highly optimized bluetooth modules with integrated antennas, the power consumption of the device with this architecture is far lower. Bluetooth modules like the Ezurio 453-00171R with integrated antenna reduce the hardware design complexity, and with a current consumption of only 20mA during transmit reduce the overall current consumption of the device dramatically.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-10
+  ROLE: Assesses
+
 [[/SECTION]]
 
 [[SECTION]]
@@ -568,19 +515,9 @@ STATEMENT: >>>
      - Option A
      - Option B
      - Option C
-   * - HRM accuracy and measurement capability
-     - 1
-     - 4
-     - 4
-     - 3
    * - HRM accuracy and cost of development time
      - 1
      - 3
-     - 4
-     - 3
-   * - SPO2 accuracy and measurement capability
-     - 1
-     - 4
      - 4
      - 3
    * - SPO2 accuracy and cost of development time
@@ -597,17 +534,22 @@ STATEMENT: >>>
      - 1
      - 5
      - 5
-     - 2
+     - 5
    * - BoM Cost
      - 1
      - 4
      - 3
      - 2
+   * - Power Consumption
+     - 2
+     - 2
+     - 2
+     - 5
    * - **Weighted total**
      - N/A
-     - 23
-     - 24
-     - 17
+     - 19
+     - 20
+     - 27
 
 This table is maintained by hand; the SCORE nodes are the source of truth.
 <<<
@@ -625,9 +567,13 @@ TITLE: Decision
 
 [TEXT]
 STATEMENT: >>>
-The difficulty of implementing the SPO2 and HRM algorithms on the MCU should be evaluated. If the algorithms are too difficult to implement, then option B should be taken. Otherwise option A is choice to be taken.
+Two things need to be evaluated:
 
-Please see the following repo for the analysis of the work required to meet requirement MOE-001-003 with architecture A.
+* The difficulty of implementing the SPO2 and HRM algorithms on the MCU should be evaluated. If the algorithms are too difficult to implement, then option B should be taken (or some variant of that version with a lower power consumption MCU)
+
+* Better estimate of the power consumption of the different options.
+
+Please see the following repo for the analysis of the work required to meet requirement MOE-001-003 without a dedicated sensor hub.
 https://github.com/BTyrrell01/ppg-testbed
 
 The repo exists as a testbed for PPG algorithms. The inputs to a test are a set of algorithms, and the data from 2x publicly available PPG datasets. The main question we can answer using the testbed is
@@ -643,11 +589,9 @@ The direct outputs of the testbed are the performance of the algorithms across m
 ============================ RESULTS ============================
 Baseline algorithms get us almost there, but have dramatic pitfalls.
 * Simple peak detect satisfies the requirement, but error goes well above 10bpm when the SNR gets low or motion artifacts corrupt the signal.
-* Wavelet transform algorithm with accelerometer data for compensation meets and exceeds the requirements, while taking 81KB of RAM on the ESP32 (Not too shabby!)
+* Wavelet transform algorithm with accelerometer data for compensation meets and exceeds the requirements, while taking 81KB of RAM on an ESP32 (Not too shabby!)
 
 file:///Users/ben/Projects/PPG_algorithm/results/dalia_dev_baselines/report.html
-
-We are going with option A! If implementing the Wavelet transform + accelerometer data is too difficult we can just use the baseline FFT + accelerometer compensation.
 <<<
 
 [[/SECTION]]
