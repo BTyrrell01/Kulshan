@@ -18,10 +18,15 @@ RATIONALE: The user can wear the watch all day, including during exercise, witho
 [REQUIREMENT]
 UID: MOE-001-002
 STATEMENT: >>>
-The watch shall be able to stream to bluetooth classic devices for 18hrs.
+The watch shall be able to stream to bluetooth classic devices for 18hrs, and be able to record an activity of at least 27:07 hours in length. Maximum current consumption at worst case must be no greater than 45mA. Activity modes without bluetooth should be around 25mA.
 <<<
 RATIONALE: >>>
 The user should be able to stream bluetooth audio from the watch all day without being connected to a phone.
+<<<
+COMMENT: >>>
+Under requirement MOE-001-002, to stream 18hrs of music, and remain alive for a full 27:07 hours
+
+Current consumption https://www.desmos.com/calculator/0ouph6ei09
 <<<
 
 [REQUIREMENT]
@@ -102,8 +107,12 @@ Data should come off of the watch and be analyzable on a computer/phone.
 
 [REQUIREMENT]
 UID: MOE-001-015
-STATEMENT: The watch should not suffer mechanical damage from depths of 30m in water.
-RATIONALE: Swimming athletes might reach shallow depths in the water.
+STATEMENT: >>>
+The watch should not suffer mechanical damage from depths of <= 30m in water.
+<<<
+RATIONALE: >>>
+Swimming athletes might reach shallow depths in the water.
+<<<
 
 [REQUIREMENT]
 UID: MOE-001-016
@@ -113,7 +122,7 @@ RATIONALE: Accurate tracking of the athlete is central to knowing other very imp
 [REQUIREMENT]
 UID: MOE-001-017
 STATEMENT: >>>
-The watch shall update the users location while recording at a minimum of 1hz.
+The watch shall update the users location while recording at a minimum of 10hz.
 <<<
 RATIONALE: >>>
 Users could be traveling at a huge variety of speeds. The watch should report accurate distance regardless of user speed.
