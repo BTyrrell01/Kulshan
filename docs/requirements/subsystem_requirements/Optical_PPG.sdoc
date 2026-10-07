@@ -4,5 +4,55 @@ VERSION: @GIT_BRANCH
 
 [TEXT]
 STATEMENT: >>>
-**Scope**:
+**Scope**: The optical PPG subsystem includes the AFE and the optical module
+
+**Optical module**: The optical module is the opto-mechanical interface between the users skin and the device
+
+**AFE**: The purpose of the AFE is to generate the optical module driving signals, as well as measuring the outputs of the optical module. It is "driving" the optical module, and acting as an interface between the optical module and the MCU.
 <<<
+
+[[SECTION]]
+TITLE: Requirements
+
+[REQUIREMENT]
+UID: REQ-14
+STATUS: Active
+TITLE: PPG SNR
+STATEMENT: >>>
+From our simulations, the optical module/AFE must produce PPG signals that are at least 0dB SNR.
+<<<
+RATIONALE: >>>
+For the algorithms to work well, there must be a good signal.
+<<<
+
+[REQUIREMENT]
+UID: REQ-15
+STATUS: Active
+TITLE: PPG sample rate
+STATEMENT: >>>
+The PPG subsystem shall be capable of 500hz sample rate
+<<<
+RATIONALE: >>>
+To meet the accuracy requirements, the PPG subsystem must be able to sample at a high enough rate to meet those requirements.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-003
+- TYPE: Parent
+  VALUE: MOE-001-011
+
+[REQUIREMENT]
+UID: REQ-17
+STATUS: Active
+TITLE: AFE LED drive capability
+STATEMENT: >>>
+The AFE(s) shall be capable of driving at least 3 LEDs
+<<<
+RATIONALE: >>>
+For the SPO2 algorithm, the device must use more than 1 wavelength of light.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-011
+
+[[/SECTION]]

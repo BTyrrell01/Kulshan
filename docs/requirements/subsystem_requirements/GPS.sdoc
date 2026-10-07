@@ -23,4 +23,15 @@ RELATIONS:
 - TYPE: Parent
   VALUE: MOE-001-017
 
+[REQUIREMENT]
+UID: REQ-16
+STATUS: Active
+TITLE: GPS Accuracy
+STATEMENT: >>>
+The GPS accuracy have an absolute accuracy better than at least 1.5m
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-016
+
 [[/SECTION]]

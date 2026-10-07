@@ -108,7 +108,7 @@ Data should come off of the watch and be analyzable on a computer/phone.
 [REQUIREMENT]
 UID: MOE-001-015
 STATEMENT: >>>
-The watch should not suffer mechanical damage from depths of <= 30m in water.
+The watch should not suffer mechanical damage from depths of <= 30m in water. It should have a rating of at least IPX8.
 <<<
 RATIONALE: >>>
 Swimming athletes might reach shallow depths in the water.
@@ -152,12 +152,22 @@ Running athletes use cadence as a metric for monitoring running form, the watch 
 <<<
 
 [REQUIREMENT]
-UID: REQ-1
+UID: MOE-001-021
 STATEMENT: >>>
 The watch shall be able to store 18hrs worth of audio in the form of 192kbps AAC audio internally
 <<<
 RATIONALE: >>>
 The user should be able to stream bluetooth audio from the watch all day without being connected to a phone.
+<<<
+
+[REQUIREMENT]
+UID: MOE-001-022
+STATUS: Active
+STATEMENT: >>>
+The device should securely boot, upgrade/update, and transfer data to the users devices.
+<<<
+RATIONALE: >>>
+The device should not reveal any user data or device firmware to the outside world or attackers.
 <<<
 
 [[/SECTION]]
