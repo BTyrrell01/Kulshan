@@ -1,0 +1,597 @@
+[DOCUMENT]
+TITLE: Kulshan: Hardware architecture trade study
+UID: KUL-ARC
+VERSION: 1.0
+PREFIX: KUL-ARC-
+METADATA:
+  AUTHOR: Ben Tyrrell-Davis
+  Ben: Engineer
+
+[GRAMMAR]
+IMPORT_FROM_FILE: trade_study.sgra
+
+[[SECTION]]
+TITLE: Purpose and Scope
+
+[TEXT]
+STATEMENT: >>>
+This trade study selects the high level hardware architecture for the Kulshan sports watch.
+
+**Decision to be made:** which hardware architecture to baseline for the watch.
+
+**Out of scope:** User interfaces, system software architecture, mechanical design decisions (though there may be mechanical requirements that influence the trade)
+
+**Method:** Each alternative is first screened against Gate criteria (pass/fail).
+Alternatives that pass all gates are scored 1-5 against each Weighted criterion.
+The weighted score is the sum of (weight x score) divided by the total weight.
+<<<
+
+[[/SECTION]]
+
+[[SECTION]]
+TITLE: Evaluation Criteria
+
+[CRITERION]
+UID: CR-4
+CRITERION_TYPE: Weighted
+CATEGORY: Schedule
+WEIGHT: 1
+TITLE: HRM accuracy and cost of development time
+STATEMENT: >>>
+Complexity of the HRM algorithm, pertaining to how much time it will take to develop the algorithm.
+<<<
+SCORING_GUIDE: >>>
+* 5: Development of the algorithm is not a concern and will take very little time.
+* 3: Development of the algorithm is not a concern for schedule, but will take moderate effort.
+* 1: Development of the algorithm will take most of the available schedule.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-003
+  ROLE: Derived from
+
+[CRITERION]
+UID: CR-8
+CRITERION_TYPE: Weighted
+CATEGORY: Schedule
+WEIGHT: 1
+TITLE: SPO2 accuracy and cost of development time
+STATEMENT: >>>
+Complexity of the SPO2 algorithm, pertaining to how much time it will take to develop the algorithm.
+<<<
+SCORING_GUIDE: >>>
+* 5: Low cost of development.
+* 3: Medium cost of development.
+* 1: High cost of development.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-011
+  ROLE: Derived from
+
+[CRITERION]
+UID: CR-2
+CRITERION_TYPE: Gate
+CATEGORY: Performance
+WEIGHT: N/A
+TITLE: Bluetooth classic streaming
+STATEMENT: >>>
+The system supports bluetooth classic streaming to slave device.
+<<<
+SCORING_GUIDE: >>>
+* Pass: System does support bluetooth classic streaming to one or more slave devices.
+* Fail: System does not support bluetooth classic streaming to any slave devices.
+<<<
+RATIONALE: >>>
+Directly required by MOE-001-002. The system cannot satisfy system requirements regardless of other merits.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-002
+  ROLE: Derived from
+
+[CRITERION]
+UID: CR-5
+CRITERION_TYPE: Weighted
+CATEGORY: Performance
+WEIGHT: 1
+TITLE: Wireless connectivity
+STATEMENT: >>>
+The degree to which the system is compatible with wireless data transfer
+<<<
+SCORING_GUIDE: >>>
+* 5: System is very flexible and has many methods for wireless connectivity
+* 3: System is moderately flexible, and meets the requirements.
+* 1: System meets the requirements, just barely.
+<<<
+RATIONALE: >>>
+MOE-001-004 directly specifies that the device should not have a method of physically  connecting the device to a computer. The device must then have a method to connect to the outside world.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-004
+  ROLE: Derived from
+
+[CRITERION]
+UID: CR-7
+CRITERION_TYPE: Weighted
+CATEGORY: Cost
+WEIGHT: 1
+TITLE: BoM Cost
+STATEMENT: >>>
+Total production cost of the system
+<<<
+SCORING_GUIDE: >>>
+* 5: Cost is lowest
+* 3: Cost is moderate
+* 1: Cost is highest
+<<<
+RATIONALE: >>>
+MOE-001-007 specifies that the BoM cost is less than $250
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-007
+  ROLE: Derived from
+
+[CRITERION]
+UID: CR-10
+CRITERION_TYPE: Weighted
+CATEGORY: Performance
+WEIGHT: 1
+TITLE: Power consumption
+STATEMENT: >>>
+The degree to which the system draws power
+<<<
+SCORING_GUIDE: >>>
+* 5: Lowest consumption
+* 1: Highest consumption
+<<<
+RATIONALE: >>>
+To keep the weight under 100g, the battery needs to be small.
+<<<
+
+[[/SECTION]]
+
+[[SECTION]]
+TITLE: Alternatives and Scoring
+
+[[ALTERNATIVE]]
+UID: ALT-1
+STATUS: Candidate
+SOURCE: InHouse
+TITLE: Option A: ESP32 sans sensor hub
+DESCRIPTION: >>>
+ESP32 microcontroller without a sensor hub
+
+
+.. image:: ./_assets/ALT-1/ESP32_opt1.svg
+<<<
+STRENGTHS: >>>
+* Hardware simplicity. Single dual core microcontroller with integrated flash.
+* Microcontroller has all interfaces necessary to make the project work.
+* WiFi, bluetooth classic, and bluetooth LE for interface flexibility.
+<<<
+WEAKNESSES: >>>
+* No ARM cores, sort of one off tooling
+* Low number of GPIOs
+<<<
+RISKS: >>>
+* Learning curve with ESP-IDF
+* 0.35mm pitch QFN for ESP32
+* HRM and SPO2 algorithm seems moderately difficult
+<<<
+
+[[/ALTERNATIVE]]
+
+[[ALTERNATIVE]]
+UID: ALT-2
+STATUS: Candidate
+SOURCE: InHouse
+TITLE: Option B: ESP32 with sensor hub
+DESCRIPTION: >>>
+ESP32 microcontroller with sensor hub
+
+
+.. image:: ./_assets/ALT-2/ESP32_opt2.svg
+<<<
+STRENGTHS: >>>
+* Software simplicity. Sensor hub eliminates the custom HRM and SPO2 algorithm.
+* Microcontroller has all interfaces necessary to make the project work.
+* WiFi, bluetooth classic, and bluetooth LE for interface flexibility.
+<<<
+WEAKNESSES: >>>
+* Slightly higher BoM cost.
+* Slightly more complicated PCB (another BGA to layout).
+* Some software work to get the ESP32 communicating with the sensor hub.
+* Slightly higher power consumption.
+<<<
+
+[[/ALTERNATIVE]]
+
+[[ALTERNATIVE]]
+UID: ALT-3
+STATUS: Candidate
+SOURCE: InHouse
+TITLE: Option C: STM32 with connectivity module
+DESCRIPTION: >>>
+STM32 (or NXP) as main processor, with bluetooth co-processor
+
+
+.. image:: ./_assets/ALT-3/STM32_opt1.svg
+<<<
+STRENGTHS: >>>
+* Lower stress on each individual MCU.
+* Increased flexibility on RF modules.
+* Reduced power consumption while using bluetooth.
+* No antenna design required for some bluetooth modules.
+<<<
+WEAKNESSES: >>>
+* Higher layout complexity. Two microcontrollers instead of 1.
+* Higher BoM cost.
+<<<
+RISKS: >>>
+Software work to get all elements working together.
+Total footprint area on the PCB.
+<<<
+
+[[/ALTERNATIVE]]
+
+[SCORE]
+UID: SC-2
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option A vs HRM accuracy and cost of development time
+STATEMENT: >>>
+Option A does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-4
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-4
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option A vs SPO2 accuracy and cost of development
+STATEMENT: >>>
+Option A does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-8
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-5
+SCORE: Pass
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option A vs Bluetooth classic streaming
+STATEMENT: >>>
+Option A offers bluetooth classic streaming, as well as LE and WiFi connectivity as well
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-2
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-6
+SCORE: 5
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option A vs Wireless connectivity
+STATEMENT: >>>
+Option A offers bluetooth classic, LE and WiFi connectivity all from the host microcontroller.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-5
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-7
+SCORE: 4
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option A vs BoM Cost
+STATEMENT: >>>
+Option A has a single, inexpensive MCU, with the minimum number of external components.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-7
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-22
+SCORE: 2
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option A vs Power Consumption
+STATEMENT: >>>
+This option has some power saving options, but during bluetooth transmisstion the power consumption is far too high.
+<<<
+EVIDENCE: >>>
+The ESP32 has dynamic frequency scaling, and you can disable the modem(s). But during transmission 0dB, the current consumption is 130mA! During streaming the modem is on essentially the entire time. The requirement at this time is to be able to stream music for 36hrs. With a current consumption of 130mA, we would require at absolute minimimum 2.34AH of battery capacity (probably more like 3AH). To keep the battery under 1000mAH, the current consumption of the entire device during music streaming would need to be 55mA.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-002
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-9
+SCORE: 4
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs HRM accuracy and cost of development time
+STATEMENT: >>>
+Option B has a sensor hub, which has a proprietary pre-optimized algorithm for HRM and SPO2. There is very little software work required to get the system working.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-4
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-11
+SCORE: 4
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs SPO2 accuracy and cost of development time
+STATEMENT: >>>
+Option B has a sensor hub, which has a proprietary pre-optimized algorithm for HRM and SPO2. There is very little software work required to get the system working.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-8
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-12
+SCORE: Pass
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs Bluetooth classic streaming
+STATEMENT: >>>
+Option B offers bluetooth classic streaming, as well as LE and WiFi connectivity as well
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-2
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-13
+SCORE: 5
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs Wireless connectivity
+STATEMENT: >>>
+Option B offers bluetooth classic, LE and WiFi connectivity all from the host microcontroller.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-5
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-14
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option B vs BoM Cost
+STATEMENT: >>>
+Option B is very slightly higher BoM cost compared to Option A, as the sensor hub has a cost
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-7
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-23
+SCORE: 2
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option B vs Power Consumption
+STATEMENT: >>>
+This option has some power saving options, but during bluetooth transmisstion the power consumption is far too high.
+<<<
+EVIDENCE: >>>
+The ESP32 has dynamic frequency scaling, and you can disable the modem(s). But during transmission 0dB, the current consumption is 130mA! During streaming the modem is on essentially the entire time. The requirement at this time is to be able to stream music for 36hrs. With a current consumption of 130mA, we would require at absolute minimimum 2.34AH of battery capacity (probably more like 3AH). To keep the battery under 1000mAH, the current consumption of the entire device during music streaming would need to be 55mA.
+
+The fact that this option has the MAX32664 might actually increase the power consumption of the device even further.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-10
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-16
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option C vs HRM accuracy and cost of development time
+STATEMENT: >>>
+Option C does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-4
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-18
+SCORE: 3
+CONFIDENCE: Medium
+EVALUATOR: Ben
+TITLE: Option C vs SPO2 accuracy and cost of development time
+STATEMENT: >>>
+Option C does not have a sensor hub, so the algorithm is completely custom. The custom algorithm will require a lot of testing and software work that admittedly might be out of my league.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-8
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-19
+SCORE: Pass
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option C vs Bluetooth classic streaming
+STATEMENT: >>>
+Option C has a dedicated bluetooth co-processor that supports bluetooth classic
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-2
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-20
+SCORE: 5
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option C vs Wireless connectivity
+STATEMENT: >>>
+Option C has a dedicated co-processor that could support any variety of protocols.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-5
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-21
+SCORE: 2
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option C vs BoM Cost
+STATEMENT: >>>
+Option C has a dedicated bluetooth co-processor. It has the highest BoM cost because of this additional co-processor cost.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-7
+  ROLE: Assesses
+
+[SCORE]
+UID: SC-24
+SCORE: 5
+CONFIDENCE: High
+EVALUATOR: Ben
+TITLE: Option C vs Power Consumption
+STATEMENT: >>>
+This option provides the best power consumption of all the options.
+<<<
+EVIDENCE: >>>
+With ultra-low-power MCUs like the STM32U595RJ, along with highly optimized bluetooth modules with integrated antennas, the power consumption of the device with this architecture is far lower. Bluetooth modules like the Ezurio 453-00171R with integrated antenna reduce the hardware design complexity, and with a current consumption of only 20mA during transmit reduce the overall current consumption of the device dramatically.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: CR-10
+  ROLE: Assesses
+
+[[/SECTION]]
+
+[[SECTION]]
+TITLE: Results
+
+[TEXT]
+STATEMENT: >>>
+.. list-table:: Scoring summary
+   :header-rows: 1
+
+   * - Criterion
+     - Weight
+     - Option A
+     - Option B
+     - Option C
+   * - HRM accuracy and cost of development time
+     - 1
+     - 3
+     - 4
+     - 3
+   * - SPO2 accuracy and cost of development time
+     - 1
+     - 3
+     - 4
+     - 3
+   * - Bluetooth classic streaming
+     - Gate
+     - Pass
+     - Pass
+     - Pass
+   * - Wireless connectivity
+     - 1
+     - 5
+     - 5
+     - 5
+   * - BoM Cost
+     - 1
+     - 4
+     - 3
+     - 2
+   * - Power Consumption
+     - 2
+     - 2
+     - 2
+     - 5
+   * - **Weighted total**
+     - N/A
+     - 19
+     - 20
+     - 27
+
+This table is maintained by hand; the SCORE nodes are the source of truth.
+<<<
+
+[TEXT]
+STATEMENT: >>>
+**Sensitivity analysis:** Option B overtakes Option A only if the cost of developing the HRM and SPO2 algorithms is truly as difficult as specified. The result is therefore moderately robust, but sensitive to
+how heavily the algorithms are to implement.
+<<<
+
+[[/SECTION]]
+
+[[SECTION]]
+TITLE: Decision
+
+[TEXT]
+STATEMENT: >>>
+Two things need to be evaluated:
+
+* The difficulty of implementing the SPO2 and HRM algorithms on the MCU should be evaluated. If the algorithms are too difficult to implement, then option B should be taken (or some variant of that version with a lower power consumption MCU)
+
+* Better estimate of the power consumption of the different options.
+
+Please see the following repo for the analysis of the work required to meet requirement MOE-001-003 without a dedicated sensor hub.
+https://github.com/BTyrrell01/ppg-testbed
+
+The repo exists as a testbed for PPG algorithms. The inputs to a test are a set of algorithms, and the data from 2x publicly available PPG datasets. The main question we can answer using the testbed is
+
+"What is the minimum amount of work required to meet requirement MOE-001-003, and will that algorithm fit on the ESP32?"
+
+The secondary questions it helps to answer are:
+* What are the pitfalls of each algorithm? Where do they fall apart and where do they excel?
+* What data is required to meet MOE-001-003? Do we need multiple wavelengths? Accelerometer data?
+
+The direct outputs of the testbed are the performance of the algorithms across many different parameters. If the bar to meet MOE-001-003 is low, then simple algorithms that port to the ESP32 easily can be developed (by me). If the algorithms are very complex or don't fit on the ESP32, then I will know that we have to go with architecture B.
+
+============================ RESULTS ============================
+Baseline algorithms get us almost there, but have dramatic pitfalls.
+* Simple peak detect satisfies the requirement, but error goes well above 10bpm when the SNR gets low or motion artifacts corrupt the signal.
+* Wavelet transform algorithm with accelerometer data for compensation meets and exceeds the requirements, while taking 81KB of RAM on an ESP32 (Not too shabby!)
+
+file:///Users/ben/Projects/PPG_algorithm/results/dalia_dev_baselines/report.html
+<<<
+
+[[/SECTION]]

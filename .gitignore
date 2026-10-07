@@ -1,10 +1,13 @@
 # kicad history repo
 .history/
 
-# ignore the output directory for the strictdoc server
+# ignore the output directories for the strictdoc server
 docs/requirements/output/
+docs/requirements/trade_studies/output/
 
 # ignore the kicad lock and configuration files
 *.kicad_pro.lck
 *.kicad_sch.lck
 *.kicad_prl
+
+

@@ -1,0 +1,52 @@
+[DOCUMENT]
+TITLE: Electrical Subsystem: MCU
+VERSION: @GIT_BRANCH
+
+[TEXT]
+STATEMENT: >>>
+**Scope**: The MCU subsystem includes the MCU, the connectivity module co-processor, and the eMMC memory attached to the MCU.
+
+**MCU**: The primary MCU in control of the watch.
+
+**Connectivity module co-processor**: The module in control of wireless connectivity to the outside world.
+
+**eMMC**: Memory connected to the MCU to store audio and other files.
+<<<
+
+[[SECTION]]
+TITLE: Requirements
+
+[REQUIREMENT]
+UID: REQ-12
+STATUS: Active
+TITLE: MCU security
+STATEMENT: >>>
+[lots of specific security requirements here]
+<<<
+RATIONALE: >>>
+I don't know anything about security yet
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-022
+
+[REQUIREMENT]
+UID: REQ-13
+STATUS: Active
+TITLE: MCU audio storage and encoding
+STATEMENT: >>>
+The MCU should handle the storage and encoding/decoding of audio files.
+<<<
+
+[REQUIREMENT]
+UID: REQ-18
+STATUS: Active
+TITLE: Audio storage
+STATEMENT: >>>
+The device should store all audio files on the eMMC, and should store 18hrs worth of audio in the form of 192kbps AAC audio internally
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-021
+
+[[/SECTION]]

@@ -1,0 +1,42 @@
+[DOCUMENT]
+TITLE: Electrical Subsystem: Haptics
+VERSION: @GIT_BRANCH
+
+[TEXT]
+STATEMENT: >>>
+**Scope**: The haptics system includes the haptics driver and the haptics actuator
+
+**Haptics Driver**: The haptics drivers purpose is to actuate the haptics actuator
+
+**Haptics Actuator**: The purpose of the haptics actuator is to vibrate the watch.
+<<<
+
+[[SECTION]]
+TITLE: Requirements
+
+[REQUIREMENT]
+UID: REQ-7
+STATUS: Active
+TITLE: Haptics actuator
+STATEMENT: >>>
+The haptics actuator must have a strength of 0.1G
+<<<
+RATIONALE: >>>
+Directly defined by MOE-001-018
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-018
+
+[REQUIREMENT]
+UID: REQ-10
+STATUS: Active
+TITLE: Haptics driver control
+STATEMENT: >>>
+The MCU shall control the haptics driver
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-018
+
+[[/SECTION]]

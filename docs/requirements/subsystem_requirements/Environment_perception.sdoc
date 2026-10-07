@@ -1,0 +1,104 @@
+[DOCUMENT]
+TITLE: Electrical Subsystem: Environment Perception
+VERSION: @GIT_BRANCH
+
+[TEXT]
+STATEMENT: >>>
+**Scope**: The Environment perception subsystem includes the IMU and the barometer.
+
+**IMU**: The IMU's main purpose is to detect when the user has taken a step, and the provide acceleration data to the MCU to improve the PPG readings.
+
+**Barometer**: The barometer's purpose is to indicate what altitude the user is at during a recorded activity.
+<<<
+
+[[SECTION]]
+TITLE: Requirements
+
+[REQUIREMENT]
+UID: REQ-2
+STATUS: Active
+TITLE: Barometer maximum pressure
+STATEMENT: >>>
+The barometer's absolute maximum pressure shall be greater than 4 bar (60 psi)
+<<<
+RATIONALE: >>>
+Driven from requirement MOE-001-015
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-015
+
+[REQUIREMENT]
+UID: REQ-3
+STATUS: Active
+TITLE: Barometer sample rate
+STATEMENT: >>>
+The barometer shall report pressure at a rate of at least 10hz
+<<<
+RATIONALE: >>>
+Driven from requirement MOE-001-017
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-017
+
+[REQUIREMENT]
+UID: REQ-4
+STATUS: Active
+TITLE: Barometer minimum pressure
+STATEMENT: >>>
+The barometer's absolute minimum pressure should be less than or equal to 0.33 bar.
+<<<
+RATIONALE: >>>
+The user should be able to stand at the highest place on the planet with the watch.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-015
+
+[REQUIREMENT]
+UID: REQ-5
+STATUS: Active
+TITLE: IMU sample rate
+STATEMENT: >>>
+IMU must sample at a high enough rate to support the HR and SPO2 algorithms (~500Hz)
+<<<
+RATIONALE: >>>
+Accelerometer data is used for the HR and SPO2 algorithms. The data must be synced with the PPG sensor.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-011
+
+[REQUIREMENT]
+UID: REQ-8
+TITLE: IMU saturation
+STATEMENT: >>>
+The IMU shall have a maximum acceleration measurement of greater than 4G
+<<<
+RATIONALE: >>>
+During running, accelerations higher than 3G may occur on the users wrist.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-020
+- TYPE: Parent
+  VALUE: MOE-001-003
+- TYPE: Parent
+  VALUE: MOE-001-011
+
+[REQUIREMENT]
+UID: REQ-9
+STATUS: Active
+TITLE: Barometer absolute accuracy
+STATEMENT: >>>
+The watch shall measure altitude with a mean absolute error of no more than 10m.
+<<<
+RATIONALE: >>>
+Directly defined in MOE-001-019
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-019
+
+[[/SECTION]]

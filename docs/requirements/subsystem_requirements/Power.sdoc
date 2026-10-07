@@ -1,0 +1,29 @@
+[DOCUMENT]
+TITLE: Electrical Subsystem: Power
+
+[TEXT]
+STATEMENT: >>>
+**Scope**: The power subsystem includes the battery, charging and management circuits, and power converters
+
+**Battery**: Used to power the device
+
+**Charging and management**: Circuits used to charge and protect the battery
+
+**Power converters**: Used to convert power from the battery to usable energy for other subsystems.
+<<<
+
+[[SECTION]]
+TITLE: Requirements
+
+[REQUIREMENT]
+UID: REQ-23
+STATUS: Active
+TITLE: Charging
+STATEMENT: >>>
+Charging shall not require a physical connection to another device
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-004
+
+[[/SECTION]]

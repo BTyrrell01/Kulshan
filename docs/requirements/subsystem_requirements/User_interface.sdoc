@@ -1,0 +1,61 @@
+[DOCUMENT]
+TITLE: Electrical Subsystem: User Interface
+VERSION: @GIT_BRANCH
+
+[TEXT]
+STATEMENT: >>>
+**Scope**: The user interface subsystem includes the display, the buttons and the speaker.
+
+**Display**: What the user looks at to get information directly from the watch
+
+**Buttons**: What the user uses to control the watch
+<<<
+
+[[SECTION]]
+TITLE: Requirements
+
+[REQUIREMENT]
+UID: REQ-19
+STATUS: Active
+TITLE: Display visibility
+STATEMENT: >>>
+The display shall be visible in outdoor environments, as well as at night.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-001
+
+[REQUIREMENT]
+UID: REQ-20
+STATUS: Active
+TITLE: Buttons
+STATEMENT: >>>
+The device shall not miss (or misinterpret) more than 1ppm of button presses
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-008
+
+[REQUIREMENT]
+UID: REQ-21
+STATUS: Active
+TITLE: Speaker volume
+STATEMENT: >>>
+The speaker should have a volume of at least 40dB 1m from the watch in 25C air at sea level.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-018
+
+[REQUIREMENT]
+UID: REQ-22
+STATUS: Active
+TITLE: Speaker waterproof rating
+STATEMENT: >>>
+The speaker shall be waterproof and prevent damage to the device even if it is wet. It shall have an IPX8 rating.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-015
+
+[[/SECTION]]
