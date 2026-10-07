@@ -151,4 +151,13 @@ RATIONALE: >>>
 Running athletes use cadence as a metric for monitoring running form, the watch should report running spm and total steps each day.
 <<<
 
+[REQUIREMENT]
+UID: REQ-1
+STATEMENT: >>>
+The watch shall be able to store 18hrs worth of audio in the form of 192kbps AAC audio internally
+<<<
+RATIONALE: >>>
+The user should be able to stream bluetooth audio from the watch all day without being connected to a phone.
+<<<
+
 [[/SECTION]]

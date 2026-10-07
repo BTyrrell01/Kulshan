@@ -9,7 +9,18 @@ STATEMENT: >>>
 GPS: Used to report the location in 3d space of the user.
 <<<
 
-[TEXT]
+[[SECTION]]
+TITLE: Requirements
+
+[REQUIREMENT]
+UID: REQ-6
+STATUS: Active
+TITLE: GPS sample rate
 STATEMENT: >>>
-Pertinent stakeholder expectations and system requirements are:
+The GPS should refresh at a rate of at least 10hz
 <<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: MOE-001-017
+
+[[/SECTION]]

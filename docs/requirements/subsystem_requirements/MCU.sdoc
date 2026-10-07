@@ -4,5 +4,11 @@ VERSION: @GIT_BRANCH
 
 [TEXT]
 STATEMENT: >>>
-**Scope**:
+**Scope**: The MCU subsystem includes the MCU, the connectivity module co-processor, and the eMMC memory attached to the MCU.
+
+**MCU**: The primary MCU in control of the watch.
+
+**Connectivity module co-processor**: The module in control of wireless connectivity to the outside world.
+
+**eMMC**: Memory connected to the MCU to store audio and other files.
 <<<
